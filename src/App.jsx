@@ -31,15 +31,25 @@ function App() {
 
   function cardClick(e) {
     let id = e.currentTarget.id;
-    if(clickedIDs.indexOf(id) < 0){
+    if (clickedIDs.indexOf(id) < 0) {
       setScore(score + 1);
-      setClickedIDs(clickedIDs => [...clickedIDs,id])
+      setClickedIDs(clickedIDs => [...clickedIDs, id])
+      randomize()
     }
     else {
-      if(score > bestScore) setBestScore(score)
+      if (score > bestScore) setBestScore(score)
       setScore(0)
       setClickedIDs([])
+      randomize()
     }
+  }
+
+  function randomize() {
+    let shuffled = pokemon
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+    setPokemon(shuffled)
   }
 
   return (
