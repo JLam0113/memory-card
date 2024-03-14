@@ -29,12 +29,17 @@ function App() {
     getPokemon('https://pokeapi.co/api/v2/pokemon/dragonite ')
   }, []);
 
-  // TODO ONCLICK SCORE AND RANDOMIZER
-  function cardClick(event) {
-    //if(clickedIDs.indexOf(this.key) !== -1){
-      //setScore(score + 1);
-    //}
-    console.log(event.currentTarget);
+  function cardClick(e) {
+    let id = e.currentTarget.id;
+    if(clickedIDs.indexOf(id) < 0){
+      setScore(score + 1);
+      setClickedIDs(clickedIDs => [...clickedIDs,id])
+    }
+    else {
+      if(score > bestScore) setBestScore(score)
+      setScore(0)
+      setClickedIDs([])
+    }
   }
 
   return (
